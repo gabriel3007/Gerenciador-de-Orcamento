@@ -1,0 +1,25 @@
+body {
+    padding-top: 50px;
+}
+
+.principal {
+    padding: 40px 15px;
+    text-align: center;
+}
+
+.form-area {
+    width: 300px;
+    margin: auto;
+    text-align: -webkit-auto;
+}
+
+.table-area{
+  width: 50%;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.descricao-orcamento{
+    width: 335px;
+    margin: auto;
+}
