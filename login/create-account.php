@@ -4,8 +4,13 @@ require_once "logica-usuario.php";
 
 $usuario = UsuarioFactory::criaNovoUser($_POST);
 $usuarioDao = new UsuarioDao();
-$usuarioDao->verificaEmailEmUso($usuario->getEmail());
-$usuarioDao->insere($usuario);
-$_SESSION['success'] = "Conta criada com sucesso, efetue login para continuar";
-header("Location: index.php");
-die();
+if($usuarioDao->existe($usuario->getEmail(), 'email')){
+    $usuarioDao->insere($usuario);
+    $_SESSION['success'] = "Conta criada com sucesso, efetue login para continuar";
+    header("Location: index.php");
+    die();
+}else{
+    header("Location: /login/form-create-account.php");
+    $_SESSION['danger'] = "O email já está em uso!!!";
+    die();
+}

@@ -2,20 +2,22 @@
 
 class LancamentoFactory{
 
-	public function montaLancamento($params){
+	public static function montaLancamento($params){
 		$valor = $params['valor'];
 		$tipo = $params['tipo'];
 		$descricao = $params['descricao'];
-		$this->validaOperacao($tipo);
-		$this->validaValor($valor);
+		$categoria_id = $params['categoria_id'];
+		LancamentoFactory::validaOperacao($tipo);
+		LancamentoFactory::validaValor($valor);
+		LancamentoFactory::verificaDadosNulos($params);
 		if(is_null($params['data'])) $data = date("d/m/Y");
 		else $data = $params['data'];
-		$lancamento = new Lancamento($valor, $tipo, $descricao, $data);
+		$lancamento = new Lancamento($valor, $tipo, $descricao, $data, $categoria_id);
 		$lancamento->atualizaValor();	
 		return $lancamento;
 	}
 
-	private function validaOperacao($tipo){
+	private static function validaOperacao($tipo){
 		$deposito = $tipo == "Deposito";
 		$retirada = $tipo == "Retirada";
 		if (!$retirada && !$deposito){
@@ -25,11 +27,21 @@ class LancamentoFactory{
 		}
 	}
 
-	private function validaValor($valor){
+	private static function validaValor($valor){
 		if ($valor < 0) {
 			$_SESSION['danger'] = "Não é possível inserir um valor abaixo de zero";
 			header("Location: /dinheiro");
 			die();
+		}
+	}
+	
+	private static function verificaDadosNulos($params){
+	    foreach ($params as $dadoLancamento) {
+            if($dadoLancamento == ""){
+            $_SESSION["danger"] = "Todos os campos necessitam de estar preenchidos";
+            header("Location: /dinheiro");
+            die(); 
+			}
 		}
 	}
 }

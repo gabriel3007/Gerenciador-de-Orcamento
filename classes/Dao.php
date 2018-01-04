@@ -25,7 +25,18 @@ abstract class Dao{
         $stmt = $conexao->prepare($query);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
-	}
+    }
+    
+
+    public function existe($novo, $coluna){
+        $existentes = $this->buscaColuna($coluna);
+        foreach($existentes as $existente){
+            if(in_array($novo,  $existente)){
+                return false; 
+            }
+        }
+        return true;
+    }
 
 	private function selecionaQuery($db_elemento, $filtro, $conexao){
 	    if ($filtro == "") {

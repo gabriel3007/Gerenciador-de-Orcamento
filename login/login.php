@@ -9,7 +9,6 @@ if (is_null($usuario)){
     die();
 }else{
     loga($usuario);
-    $_SESSION['success'] = "Logado com sucesso";
     header("Location: /index.php");
     die();
 }

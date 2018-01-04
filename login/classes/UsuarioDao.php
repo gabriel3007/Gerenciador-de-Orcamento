@@ -14,13 +14,13 @@ class UsuarioDao extends Dao{
         return ['nome', 'email', 'senha'];
     }
 
-	public function insere(Usuario $user){
+	public function insere(Usuario $usuario){
         $conexao = Conexao::get();
-        $senhaMd5 = md5($user->getSenha());
+        $senhaMd5 = md5($usuario->getSenha());
         $query = "INSERT INTO {$this->tabela()} (nome, email, senha) VALUES (:nome, :email, :senha)";
         $stmt = $conexao->prepare($query);
-        $stmt->bindValue(':nome', $user->getNome());
-        $stmt->bindValue(':email', $user->getEmail());
+        $stmt->bindValue(':nome', $usuario->getNome());
+        $stmt->bindValue(':email', $usuario->getEmail());
         $stmt->bindValue(':senha', $senhaMd5);
         return $stmt->execute();
 	}
@@ -41,7 +41,7 @@ class UsuarioDao extends Dao{
 		foreach ($emailsEmUso as $emailEmUso) {
 			if ($email == $emailEmUso['email']){
 				$_SESSION['danger'] = "O email já está em uso!!!";
-				header("Location: /agenda/login/form-create-account.php");
+				header("Location: /login/form-create-account.php");
 				die();
 			}
 		}
