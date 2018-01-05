@@ -10,11 +10,11 @@ $categoriaDao = new CategoriaDao();
 
 if($categoriaDao->existe($categoria->getNome(), 'nome')){
     $categoriaDao->insere($categoria, $usuario);
-    $_SESSION['sucess'] = "Categoria adicionada com sucesso";
+    $_SESSION['success'] = "Categoria adicionada com sucesso";
     header("location: /categorias");
     die();
 }else{
-    $_SESSION['danger'] = "Categoria adicionada com sucesso";
+    $_SESSION['danger'] = "Catgoria já existe";
     header("location: /categorias/form-adiciona.php");
     die();
 }

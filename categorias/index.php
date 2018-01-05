@@ -13,21 +13,14 @@ $categorias = $categoriaDao->busca('usuario_id', $usuario->getId());
         <thead>
             <tr>
                 <td>Categoria</td>
-                <td>---</td>
-                <td>---</td>
+                <td>Saldo</td>
             </tr>
         </thead>
         <tbody>
             <?php foreach($categorias as $categoria):?>
             <tr>
-                <td><?=$categoria->getNome()?></td>
-                <td><a class="btn btn-default btn-block" href="/categorias/form-editar.php?id=<?=$categoria->getId()?>">Editar</a></td>
-                <td>
-                    <form action="/categorias/deletar.php" method="post">
-                        <input type="hidden" name="id" value="<?=$categoria->getId()?>">
-                        <button class="btn btn-danger btn-block" type="submit">Deletar</button>
-                    </form>
-                </td>
+                <td><a href="/categorias/categoria.php?id=<?=$categoria->getId()?>"><?=$categoria->getNome()?></a></td>
+                <td><?=$categoria->getSaldo()?></td>
             </tr>
             <?php endforeach ?>
         </tbody>

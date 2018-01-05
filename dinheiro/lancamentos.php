@@ -4,6 +4,8 @@ require_once "../autoload.php";
 require_once "../login/logica-usuario.php";
 require_once "logica-orcamento.php";
 
+verificaUsuarioLogado();
+
 $usuario = usuarioLogado();
 $orcamento = orcamentoUsuario();
 $lancamentos = $orcamento->getLancamentos();

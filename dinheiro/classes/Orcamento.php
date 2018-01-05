@@ -19,6 +19,16 @@ class Orcamento{
 		}
 		return $total;
 	}
+
+	public function getLancamentosCategoria($nomeCategoria){
+		$lancamentosCategoria = [];
+		foreach ($this->lancamentos as $lancamento) {
+			if($lancamento->getCategoriaNome() == $nomeCategoria){
+				$lancamentosCategoria[] = $lancamento;
+			}
+		}
+		return $lancamentosCategoria;
+	}
 	
 	public function getUltimosLancamentos(){
 		return array_slice($this->lancamentos, 0, 10);

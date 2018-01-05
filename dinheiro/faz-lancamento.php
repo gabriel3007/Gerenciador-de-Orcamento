@@ -5,8 +5,10 @@ verificaUsuarioLogado();
 
 $usuario = usuarioLogado();
 $orcamentoDao = new OrcamentoDao();
+$categoriaDao = new CategoriaDao();
 
 $lancamento = LancamentoFactory::montaLancamento($_POST);
+$categoriaDao->adicionaValor($lancamento, $usuario);
 $orcamentoDao->insere($lancamento, $usuario->getId());
 geraOrcamento($usuario);
 
