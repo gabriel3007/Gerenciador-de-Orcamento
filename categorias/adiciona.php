@@ -8,7 +8,7 @@ $categoria->verificaNome();
 
 $categoriaDao = new CategoriaDao();
 
-if($categoriaDao->existe($categoria->getNome(), 'nome')){
+if($categoriaDao->existeCategoria($categoria, $usuario)){
     $categoriaDao->insere($categoria, $usuario);
     $_SESSION['success'] = "Categoria adicionada com sucesso";
     header("location: /categorias");

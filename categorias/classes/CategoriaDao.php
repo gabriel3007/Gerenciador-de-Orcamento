@@ -62,4 +62,14 @@ class CategoriaDao extends Dao{
        }
        return false;
     }
+
+      public function existeCategoria($novaCategoria, $usuario){
+        $categoriasUsuario = $this->busca('usuario_id', $usuario->getId());
+        foreach($categoriasUsuario as $categoria){
+            if($novaCategoria->getNome() == $categoria->getNome()){
+                return false; 
+            }
+        }
+        return true;
+    }
 }
