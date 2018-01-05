@@ -20,6 +20,7 @@ require_once "login/logica-usuario.php";
 				<li><a href="/login/">Login</a></li>
 				<li><a href="/login/form-create-account.php">Create account</a></li>
 			<?php else: ?>
+				<li><a href="/dinheiro/lancamentos.php">Todos Lançamentos</a></li>
 				<li><a href="/dinheiro">Fazer Lançamento</a></li>
 				<li><a href="/categorias">Categorias</a></li>
 				<li><a href="/login/logout.php">Logout</a></li>

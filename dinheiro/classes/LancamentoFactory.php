@@ -7,16 +7,26 @@ class LancamentoFactory{
 		$tipo = $params['tipo'];
 		$descricao = $params['descricao'];
 		$categoria_id = $params['categoria_id'];
+		$data = date("d/m/Y");
 		LancamentoFactory::validaOperacao($tipo);
 		LancamentoFactory::validaValor($valor);
 		LancamentoFactory::verificaDadosNulos($params);
-		if(is_null($params['data'])) $data = date("d/m/Y");
-		else $data = $params['data'];
 		$lancamento = new Lancamento($valor, $tipo, $descricao, $data, $categoria_id);
 		$lancamento->atualizaValor();	
 		return $lancamento;
 	}
 
+	public function montaLancamentoDb($params){
+		$valor = $params['valor'];
+		$tipo = $params['tipo'];
+		$descricao = $params['descricao'];
+		$data = $params['data'];
+		$categoria_id = $params['categoria_id'];
+		$categoria_nome = $params['nome'];
+		$lancamento = new Lancamento($valor, $tipo, $descricao, $data, $categoria_id, $categoria_nome);
+		return $lancamento;
+	}
+	
 	private static function validaOperacao($tipo){
 		$deposito = $tipo == "Deposito";
 		$retirada = $tipo == "Retirada";

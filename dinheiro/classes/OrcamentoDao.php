@@ -13,24 +13,7 @@ class OrcamentoDao extends Dao{
 		return ['valor', 'tipo', 'descricao', 'data', 'nome'];
 	}
 
-	public function buscaLancamentos(Usuario $usuario){
-		$conexao = Conexao::get();
-		$query = "SELECT * FROM orcamento INNER JOIN categorias ON orcamento.categoria_id = categorias.id
-				WHERE orcamento.usuario_id = {$usuario->getId()} AND categorias.usuario_id = {$usuario->getId()}";
-		$resultado = $conexao->query($query);
-		return $resultado->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, $this->objeto(), $this->atributosObjeto());
-	}
-
-	public function buscaLancamentosDia(Usuario $usuario){
-		$conexao = Conexao::get();
-		$data = date("Y-m-d");
-		$query = "SELECT * FROM orcamento INNER JOIN categorias ON orcamento.categoria_id = categorias.id
-				WHERE orcamento.usuario_id = {$usuario->getId()} 
-				AND categorias.usuario_id = {$usuario->getId()} AND  orcamento.data = '{$data}'";
-		$resultado = $conexao->query($query);
-		return $resultado->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, $this->objeto(), $this->atributosObjeto());
-	}
-
+	
 	public function insere(Lancamento $lancamento, $usuario_id){
 		$conexao = Conexao::get();
 		$query = "INSERT INTO {$this->tabela()} (valor, tipo, descricao, data, usuario_id, categoria_id) 
@@ -41,5 +24,19 @@ class OrcamentoDao extends Dao{
 		$stmt->bindValue(':descricao', $lancamento->getDescricao());
 		$stmt->bindValue(':categoria_id', $lancamento->getCategoriaId());
 		$stmt->execute();
+	}
+	
+	public function buscaLancamentos(Usuario $usuario){
+		$conexao = Conexao::get();
+		$query = "SELECT * FROM orcamento INNER JOIN categorias ON orcamento.categoria_id = categorias.id
+				WHERE orcamento.usuario_id = {$usuario->getId()} AND categorias.usuario_id = {$usuario->getId()}";
+		$resultado = $conexao->query($query);
+		$lancamentosArray = $resultado->fetchAll();
+		$lancamentos = [];
+		foreach($lancamentosArray as $lancamentoArray){
+			$lancamento = LancamentoFactory::montaLancamentoDb($lancamentoArray);
+			$lancamentos[] = $lancamento;
+		}
+		return $lancamentos;
 	}
 }

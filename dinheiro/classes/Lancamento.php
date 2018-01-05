@@ -7,35 +7,15 @@ class Lancamento{
 	private $descricao;
 	private $data;
 	private $categoria_id;
-	//nome categoria
-	private $nome;
+	private $categoria_nome;
 
-	function __construct($valor, $tipo, $descricao, $data, $categoria_id, $nome){
+	function __construct($valor, $tipo, $descricao, $data, $categoria_id, $categoria_nome){
 		$this->valor = $valor;
 		$this->tipo = $tipo;
 		$this->descricao = $descricao;
 		$this->data = $data;
 		$this->categoria_id = $categoria_id;
-		$this->nome = $nome;
-	}
-
-	public function getCategoriaId(){
-		return $this->categoria_id;
-	}
-	public function getValor(){
-		return $this->valor;
-	}
-
-	public function getTipo(){
-		return $this->tipo;
-	}
-
-	public function getDescricao(){
-		return $this->descricao;
-	}
-
-	public function getData(){
-		return $this->data;
+		$this->categoria_nome = $categoria_nome;
 	}
 
 	public function atualizaValor(){
@@ -44,7 +24,27 @@ class Lancamento{
 		}
 	}
 
-	public function getNome(){
-		return $this->nome;
+	public function getValor(){
+		return $this->valor;
+	}
+	
+	public function getTipo(){
+		return $this->tipo;
+	}
+	
+	public function getDescricao(){
+		return $this->descricao;
+	}
+	
+	public function getData(){
+		return $this->data;
+	}
+	
+	public function getCategoriaId(){
+		return $this->categoria_id;
+	}
+
+	public function getCategoriaNome(){
+		return $this->categoria_nome;
 	}
 }
